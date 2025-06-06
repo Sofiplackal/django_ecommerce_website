@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding-top: 100px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background-color: white;
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+            padding: 0 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-logo img {
+            width: 200px;
+        }
+
+        .nav-left {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-left li {
+            position: relative;
+        }
+
+        .nav-left li a {
+            display: block;
+            padding: 35px 20px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .nav-left li a:hover {
+            color: #28c76f;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: none;
+            background-color: white;
+            width: 180px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            padding: 10px 20px;
+            display: block;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #00B060;
+            color: white;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-container {
+            position: relative;
+            background-color: #f2f2f2;
+            border-radius: 50%;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        .cart-container i {
+            font-size: 18px;
+            color: black;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background-color: #28c76f;
+            color: white;
+            border-radius: 50%;
+            font-size: 10px;
+            padding: 2px 5px;
+        }
+
+        .hotline {
+            font-size: 14px;
+        }
+
+        .hotline .label {
+            font-weight: bold;
+            color: gray;
+        }
+
+        .signup-btn {
+            background-color: black;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .signup-btn:hover {
+            background-color: #28c76f;
+        }
+
+
+
+
+
+
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background:white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    z-index: 999;
+  }
+
+  ul, ul li, ul li ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .top-navbar .nav-logo img {
+    max-height: 40px;
+  }
+
+  .nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .nav-icons i {
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+  }
+
+  #nav-toggle {
+    display: none;
+  }
+
+  .mobile-dropdown-menu-container,
+  .bottom-footer {
+    display: none; /* Default: hidden */
+  }
+
+  ul.mobile-dropdown-menu li a {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: black;
+    transition: background 0.3s, color 0.3s;
+    width: 100%;
+  }
+
+  ul.mobile-dropdown-menu li a:hover {
+    background: green;
+    color: white;
+  }
+
+  ul.mobile-dropdown-menu li:first-child a {
+    background: green;
+    color: white;
+  }
+
+  li.mobile-dropdown > a.mobile-dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .mobile-dropdown-menu li ul {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: white;
+  }
+
+  .mobile-dropdown.active > ul {
+    max-height: 1000px;
+  }
+
+  .mobile-dropdown-icon {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-dropdown.active .mobile-dropdown-icon {
+    transform: rotate(180deg);
+  }
+
+  .mobile-dropdown ul li a {
+    padding-left: 30px;
+  }
+
+ 
+  @media screen and (min-width: 0px) {
+    .mobile-dropdown-menu-container {
+      display: block;
+      background: white;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+    }
+
+    #nav-toggle:checked ~ .mobile-dropdown-menu-container {
+      max-height: 2000px;
+    }
+
+    .bottom-footer {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #f2f2f2;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      border-top: 1px solid #ccc;
+      z-index: 999;
+    }
+
+    .bottom-footer i {
+      font-size: 20px;
+      color: black;
+    }
+
+    .bottom-footer span {
+      display: block;
+      font-size: 12px;
+    }
+
+    .bottom-footer div {
+      text-align: center;
+    }
+
+    body {
+      padding-bottom: 60px;
+    }
+    
+  }
+
+.footer {
+            background-color: white;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            
+            
+        }
+
+        .footer .container {
+            max-width: 1200px;
+            
+            
+        }
+
+        .footer .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer p {
+            font-size: 1.5rem;
+            color: #eee;
+            padding: 1rem 0;
+        }
+
+        .footer .col-md-4:nth-child(1) a {
+            font-size: 3rem;
+            color: black;
+        }
+
+        .footer .col-md-4:nth-child(1) a span {
+            color: var(--blue);
+        }
+
+        .footer .col-md-4 {
+            padding: 20px;
+        }
+
+        .footer h3 {
+            font-size: 24px;
+            color: black;
+            text-align: center;
+        }
+
+        .footer .logo {
+            color: #000000;
+            letter-spacing: 1px;
+            text-align: left;
+        }
+
+        .footer .logo span {
+            color: #42a5f5;
+        }
+
+        .footer .logo:hover {
+            color: #42a5f5;
+        }
+
+        .footer p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #111111;
+        }
+
+        .footer a {
+            display: block;
+            font-size: 16px;
+            color: #666;
+            text-decoration: none;
+            margin: 10px 0;
+            transition: color 0.3s ease;
+            text-align: center;
+        }
+
+        .footer a:hover {
+            color: #42a5f5;
+        }
+
+        .footer .credit {
+            font-size: 14px;
+            color: #bbb;
+            text-align: center;
+            margin-top: 30px;
+            width: 80%;
+            margin: 0;
+            padding: 2rem 0;
+            padding-bottom: 4rem;
+            border-top: .1rem solid #ccc !important;
+        }
+
+        .footer .credit span {
+            color: #42a5f5;
+        }
+
+        .footer .col-md-4 a:hover {
+            color: #42a5f5;
+        }
+
+
+
+        
+
+@media (min-width: 0px) {
+            .navbar {
+                display: none;
+            }
+
+            body {
+                padding-top: 0;
+            }
+        }
+       
+@media (min-width: 768px) {
+  body {
+    padding-top: 100px;
+  }
+   .mobile-dropdown-menu-container,
+  .bottom-footer {
+    display: none; 
+  }
+
+  .navbar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    padding: 0 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    flex-wrap: nowrap;
+  }
+
+  .nav-logo img {
+    width: 160px; 
+  }
+
+  .nav-left {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: nowrap;
+  }
+
+  .nav-left li a {
+    padding: 20px 10px;
+    font-size: 14px;
+  }
+
+  .dropdown-menu {
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: white;
+    width: 160px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-menu li a {
+    padding: 10px 15px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    flex-shrink: 0;
+  }
+
+  .cart-container {
+    padding: 10px;
+  }
+
+  .hotline {
+    font-size: 12px;
+  }
+
+  .signup-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+  .top-navbar{
+    display: none;
+            }
+   #nav-toggle{
+    display: none;
+   }
+
+}
+
+        @media (min-width: 1024px) {
+            .navbar {
+                display: flex;
+            }
+             .mobile-dropdown-menu-container,
+  .bottom-footer {
+    display: none; 
+  }
+              .top-navbar{
+    display: none;
+            }
+   #nav-toggle{
+    display: none;
+   }
+        }
+
+
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+<input type="checkbox" id="nav-toggle" />
+
+<!-- Top Navbar -->
+<nav class="top-navbar">
+  <div class="nav-logo">
+    <a href="{% url 'home' %}"><img src="{% static 'images/BENIPRINTS-logo-1.png' %}" alt="Logo" /></a>
+  </div>
+
+  <div class="nav-icons">
+    <label for="nav-toggle">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel" style="display: none;"></i>
+    </label>
+    <i class="fas fa-search"></i>
+    <div class="cart-container">
+      <i class="fas fa-shopping-bag"></i>
+      <span class="cart-badge" style="background: green; color: white; font-size: 12px; padding: 2px 6px; border-radius: 50%; position: relative; top: -10px; right: 10px;">0</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Dropdown Menu -->
+<div class="mobile-dropdown-menu-container">
+  <ul class="mobile-dropdown-menu">
+    <li><a href="#">Home</a></li>
+
+    <li class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">Shop <i class="fas fa-chevron-down dropdown-icon"></i></a>
+      <ul class="mobile-dropdown-menu">
+        <li><a href="#">Cart</a></li>
+        <li><a href="#">My account</a></li>
+
+        <li class="mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">Checkout <i class="fas fa-chevron-down dropdown-icon"></i></a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">Order Tracking</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">Wishlist</a></li>
+        <li><a href="#">My Designs</a></li>
+
+        <li class="mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">Product Style <i class="fas fa-chevron-down dropdown-icon"></i></a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">Horizontal Slide</a></li>
+            <li><a href="#">Vertical Style Sticky</a></li>
+            <li><a href="#">Vertical Gallery</a></li>
+            <li><a href="#">Grid Gallery</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">Blog <i class="fas fa-chevron-down dropdown-icon"></i></a>
+      <ul class="mobile-dropdown-menu">
+        <li><a href="#">Post Formats</a></li>
+      </ul>
+    </li>
+
+    <li class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">Pages <i class="fas fa-chevron-down dropdown-icon"></i></a>
+      <ul class="mobile-dropdown-menu">
+        <li><a href="#">Design Online</a></li>
+
+        <li class="mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">Price by Options <i class="fas fa-chevron-down dropdown-icon"></i></a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">Show All Layout</a></li>
+            <li><a href="#">Toggle Layout</a></li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">About Us <i class="fas fa-chevron-down dropdown-icon"></i></a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">About Us 2</a></li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">Contact Us <i class="fas fa-chevron-down dropdown-icon"></i></a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">Contact Us 2</a></li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">Services <i class="fas fa-chevron-down dropdown-icon"></i></a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">Cart</a></li>
+            <li><a href="#">My account</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">Request a Quote</a></li>
+        <li><a href="#">Our Team</a></li>
+
+        <li class="mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">Services <i class="fas fa-chevron-down dropdown-icon"></i></a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">Service List</a></li>
+            <li><a href="#">Service Detail</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Pricing Plans</a></li>
+      </ul>
+    </li>
+
+    <li class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">About Us <i class="fas fa-chevron-down dropdown-icon"></i></a>
+      <ul class="mobile-dropdown-menu">
+        <li><a href="#">About Us 1</a></li>
+        <li><a href="#">About Us 2</a></li>
+      </ul>
+    </li>
+
+    <li class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">Contact Us <i class="fas fa-chevron-down dropdown-icon"></i></a>
+      <ul class="mobile-dropdown-menu">
+        <li><a href="#">Contact Us 1</a></li>
+        <li><a href="#">Contact Us 2</a></li>
+      </ul>
+    </li>
+
+    <li class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">Services <i class="fas fa-chevron-down dropdown-icon"></i></a>
+      <ul class="mobile-dropdown-menu">
+        <li><a href="#">Service Detail</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#">FAQs</a></li>
+    <li><a href="#">Our Team</a></li>
+    <li><a href="#">Pricing Plans</a></li>
+    <li><a href="#">Print Your Own</a></li>
+    <li><a href="#">Request a Quote</a></li>
+  </ul>
+</div>
+
+
+
+<header>
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/BENIPRINTS-logo-1.png' %}" alt="Logo">
+            </a>
+        </div>
+
+        <ul class="nav-left">
+            <li class="dropdown">
+                <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'hoodie' %}">Hoodies</a></li>
+                    <li><a href="{% url 'polos' %}">Polos</a></li>
+                    <li><a href="{% url 'tshirts' %}">T-Shirts</a></li>
+                    <li><a href="{% url 'jackets' %}">Jackets</a></li>
+                    <li><a href="{% url 'sweatshirts' %}">Sweatshirts</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Printing Style</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#"><i class="fas fa-search"></i></a></li>
+        </ul>
+
+        <div class="nav-right">
+            <div class="cart-container">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge">0</span>
+            </div>
+            <div class="hotline">
+                <span class="label">HOTLINE:</span><br>
+                <span class="number">00 1900 8188</span>
+            </div>
+            <a href="#" class="signup-btn">Sign Up</a>
+        </div>
+    </nav>
+</header>
+
+<!-- Bottom Footer (only on small screens) -->
+<div class="bottom-footer">
+  <div>
+    <i class="fas fa-store"></i>
+    <span>Shop</span>
+  </div>
+  <div>
+    <i class="fas fa-user"></i>
+    <span>Account</span>
+  </div>
+  <div>
+    <i class="fas fa-search"></i>
+    <span>Search</span>
+  </div>
+  <div>
+    <i class="fas fa-shopping-cart"></i>
+    <span>Cart</span>
+  </div>
+</div>
+
+<div class="page-wrapper">
+    {% block content %}{% endblock content %}
+</div>
+
+
+
+
+
+ <!-- Footer -->
+     
+    <section class="footer bg-secondary-subtle" style=" padding: 10rem;">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-3" data-aos="fade-right">
+                   <a href="{% url 'home' %}"> <img src="{% static 'images/BENIPRINTS-logo-1.png' %}" alt="Logo" style="width: 200px;" /></a>
+                    <a href="mailto:hello@beniprints.com">hello@beniprints.com</a>
+                    <a href="tel:+020360383996">+02 036 038 3996</a>
+                    <a href="#">3665 Paseo Place, Suite 0960 <br /> London, UK</a>
+                </div>
+
+                <div class="col-md-3 text-center" data-aos="fade-up">
+                    <h3>Information</h3>
+                    <a href="{% url 'about' %}">About us</a>
+                    <a href="#about">Our Blog</a>
+                    <a href="#facility">Contact Us</a>
+                    <a href="#review">FAQ</a>
+                </div>
+
+                <div class="col-md-3 text-center" data-aos="fade-left">
+                    <h3>Useful links</h3>
+                    <a href="#">My Account</a>
+                    <a href="#">Printing Styles</a>
+                    <a href="#">Become a Partner</a>
+                    <a href="#">About Us</a>
+                </div>
+
+                <div class="col-md-3 text-center" data-aos="fade-left">
+                    <h3>Newsletter</h3>
+                    <a href="#">Get the latest news events &amp; more delivered <br /> to your inbox</a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="container-fluid">
+  <div class="row">
+    
+    <div class="col-sm-12 text-center pt-3">
+      <img src="{% static 'images/footer-payment-method.png' %}" alt="">
+       <p class="mb-0 mt-3" style="color:  #666;font-size:1rem;" >© 2024 BeniPrints. All rights reserved.</p>
+    </div>
+  </div>
+</div>
+        
+
+
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const dropdowns = document.querySelectorAll('.mobile-dropdown > a.mobile-dropdown-toggle');
+
+  dropdowns.forEach(toggle => {
+    toggle.addEventListener('click', e => {
+      e.preventDefault();
+      const parent = toggle.parentElement;
+
+      // Close all nested dropdowns when closing current dropdown
+      if (parent.classList.contains('active')) {
+        collapseAllChildren(parent);
+        parent.classList.remove('active');
+      } else {
+        parent.classList.add('active');
+      }
+    });
+  });
+
+  const collapseAllChildren = (element) => {
+    const activeDropdowns = element.querySelectorAll('.mobile-dropdown.active');
+    activeDropdowns.forEach(child => child.classList.remove('active'));
+  };
+
+  const checkbox = document.getElementById('nav-toggle');
+  const btn = document.getElementById('btn');
+  const cancel = document.getElementById('cancel');
+
+  checkbox.addEventListener('change', () => {
+    if (checkbox.checked) {
+      btn.style.display = 'none';
+      cancel.style.display = 'inline-block';
+    } else {
+      btn.style.display = 'inline-block';
+      cancel.style.display = 'none';
+
+      // Collapse all dropdowns when closing the menu
+      document.querySelectorAll('.mobile-dropdown.active').forEach(dropdown => dropdown.classList.remove('active'));
+    }
+  });
+});
+
+</script>
+ <script>
+        var typed = new Typed(".text", {
+            strings: ["Brand", "Design", "Identity"],
+            typeSpeed: 100,
+            backSpeed: 100,
+            backDelay: 1000,
+            loop: true,
+        });
+    </script>
+    
+
+   <script>
+    const counters = document.querySelectorAll('.counter');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const duration = 2000; // animation duration in ms
+                const steps = 13; // we'll go from 0 to N in 13 steps (including 0)
+
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const increment = target / (steps - 1);
+                    let count = 0;
+                    let currentStep = 0;
+
+                    const updateCounter = () => {
+                        if (currentStep < steps) {
+                            const displayValue = Math.round(count / 1000) + 'k+';
+                            counter.innerText = displayValue;
+                            count += increment;
+                            currentStep++;
+                            setTimeout(updateCounter, duration / steps);
+                        } else {
+                            counter.innerText = Math.round(target / 1000) + 'k+';
+                        }
+                    };
+
+                    updateCounter();
+                });
+
+                observer.disconnect(); // stop observing once triggered
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => observer.observe(counter));
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Mobile dropdown functionality
+    const dropdownLinks = document.querySelectorAll('.smallscreen li.dropdown > a');
+
+    dropdownLinks.forEach(link => {
+      link.addEventListener('click', function (e) {
+        const parentLi = this.parentElement;
+
+        // Only enable toggle if smallscreen is visible (mobile view)
+        if (window.innerWidth <= 767) {
+          e.preventDefault(); // Prevent navigation
+          parentLi.classList.toggle('active');
+        }
+      });
+    });
+  });
+</script>
+
+
+<!-- JS Scripts -->
+<script src="{% static 'js/main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
