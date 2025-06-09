@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .about {
+        color: gray;
+        padding: 0 25px 25px 25px;
+    }
+</style>
+
+<div class="row align-items-center py-5">
+  <!-- Left Column -->
+  <div class="col-sm-6">
+    <h1 style="font-weight: bold; padding: 25px;">
+      Welcome to Beniprint, your <br>
+      expert in textile <br>
+      customization
+    </h1>
+    <p class="about">
+      Since our creation, we have been passionate about bringing your <br>
+      ideas to life through unique and tailored designs. Whether you're <br>
+      a business looking to enhance your brand image, an organization <br>
+      planning a memorable event, or an individual seeking a <br>
+      personalized gift, we are here to turn your vision into reality.
+    </p>
+  </div>
+
+  <!-- Right Column -->
+  <div class="col-sm-6 text-center text-sm-end px-4">
+    <img src="{% static 'images/about.jpeg' %}" alt="aboutimage" style="border-radius: 10px; max-width: 100%; height: auto;">
+  </div>
+</div>
+
+{% endblock %}

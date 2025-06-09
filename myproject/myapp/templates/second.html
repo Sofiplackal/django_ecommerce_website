@@ -1,0 +1,158 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+
+
+      .home {
+        flex-direction: column;
+        text-align: center;
+        background-image: url('images/homepagesmallscreen.png');
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-size: cover; /* Optional: makes the image cover the section */
+        background-position: center; /* Optional: centers the image */
+    }
+
+ .home h1{
+    font-size: 4.5rem; 
+    font-weight: 600; 
+    line-height: 1.2; 
+    margin: 0;
+  }
+
+
+   @media (max-width: 1024px) {
+       
+         .home h1{
+            font-size: 4rem;
+         }}
+
+    @media (max-width: 767px) {
+        .home {
+            padding-top: 100px;
+            
+        }
+         .home h1{
+            font-size: 3rem;
+         }
+
+     
+    }
+</style>
+<section class="home" id="home" style="background-color: rgb(233, 233, 249); height: 700px;">
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="col-12 d-flex flex-column align-items-start justify-content-center text-start" style="padding-top: 50px;">
+
+                <!-- Headings -->
+                <h1 >
+                    Start your
+                    <span style="position: relative; display: inline-block;">
+                        tshirt
+                        <img src="{% static 'images/text-underline-decor.svg' %}" alt="Underline Decor"
+                             style="position: absolute; bottom: -8px; right: -15px; width: 165%; height: auto;
+                             filter: invert(34%) sepia(97%) saturate(491%) hue-rotate(81deg) brightness(95%) contrast(89%);
+                             pointer-events: none; user-select: none;">
+                    </span>
+                    <br>
+                </h1>
+
+                <h1 >
+                    <span class="text"></span> <br> Business
+                </h1>
+
+                <!-- Description -->
+                <p class="text-muted mt-3 mb-4" style="font-size: 1.1rem; line-height: 2.5rem;">
+                    Your prints, perfected! End-to-end t-shirt printing made easy. Create <br>
+                    shirts for you or your growing brand.
+                </p>
+
+                <!-- CTA Button -->
+                <a href="#">
+                    <button class="btn btn-success px-4 py-2" style="font-weight: 600;">
+                        Checkout Our Collection →
+                    </button>
+                </a>
+
+                <!-- Stats -->
+                <div class="d-flex gap-5 pt-5 flex-wrap">
+                    <div>
+                        <h3 class="fw-bold counter" data-target="12000" style="font-size: 3rem;">0</h3>
+                        <p class="text-muted">Collections</p>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold counter" data-target="26000" style="font-size: 3rem;">0</h3>
+                        <p class="text-muted">Items trusted to deliver</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- Intro Section -->
+<section class="text-center py-5 px-3">
+    <h1 class="fw-bold mb-4">
+        Custom T-Shirts, Your Way – Style, Quality, and Speed in Every Print!
+    </h1>
+    <p class="text-muted fs-5">
+        At Beniprint, we bring your ideas to life with high-quality custom t-shirt printing.<br>
+        Whether you're designing for personal use, a business, or a special event,<br>
+        our seamless process ensures vibrant prints, durable fabrics, and fast delivery.<br>
+        From bold designs to intricate embroidery, we make it easy to create something unique.
+    </p>
+</section>
+
+<!-- Products Section -->
+<div class="container py-4">
+    <div class="row g-4">
+        {% for p in products %}
+            <div class="col-6 col-md-4 col-lg-3">
+                <div>
+                    <img src="{{ p.product_image.url }}" alt="{{ p.product_name }}" class="img-fluid rounded">
+                    <h5 class="pt-3 fw-bold">{{ p.product_name }}</h5>
+                    <p class="text-muted pt-2">{{ p.product_description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<h1 class="text-center fw-bold py-5">How Beniprint Works</h1>
+<div class="container pb-5">
+    <div class="row g-4">
+        {% for w in working %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div>
+                    <img src="{{ w.working_image.url }}" alt="{{ w.working_name }}" class="img-fluid rounded">
+                    <h5 class="pt-3 fw-bold">{{ w.working_name }}</h5>
+                    <p class="text-muted pt-2">{{ w.working_description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<section style="background-color: rgb(5, 78, 5); text-align: center; padding: 6rem 1rem;">
+    <h1 class="text-white fw-bold mb-3" style="font-size: 2.5rem;">
+        Join the Beniprint family<br>
+        and let us bring your<br>
+        textile ideas to life!
+    </h1>
+    <p class="text-white fs-5 mb-4">T-shirts that keep you moving.</p>
+    <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+        <a href="#" class="btn btn-success px-4 py-2 fw-bold rounded">Shop Now →</a>
+        <a href="#" class="btn btn-light px-4 py-2 fw-bold">Contact Us →</a>
+    </div>
+</section>
+
+{% endblock %}
+

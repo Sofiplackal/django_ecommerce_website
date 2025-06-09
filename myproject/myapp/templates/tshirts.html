@@ -1,0 +1,121 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .bg-white {
+    background-color: #ffffff !important;
+  }
+
+  .filter-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .filter {
+    font-family: sans-serif;
+    font-size: small;
+  }
+
+  .icon-btn {
+    background-color: transparent;
+    border: none;
+    padding: 6px 10px;
+    font-size: 16px;
+  }
+
+  .icon-btn a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  .icon-btn a:hover {
+    color: #28c76f;
+  }
+
+  .filter-btn i {
+    font-size: 14px;
+  }
+
+  .btn-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .bg-secondary-subtle {
+    background-color: rgba(226, 228, 230, 0.664);
+  }
+
+  .heading {
+    color: gray !important;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .heading span {
+    color: black !important;
+  }
+
+  .description {
+    border-radius: 10px;
+    color: gray;
+  }
+
+  .text1 {
+    color: gray;
+  }
+
+  @media (max-width: 576px) {
+    .btn-group {
+      justify-content: center !important;
+    }
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 bg-secondary-subtle pt-3">
+      <p class="heading">Home <span>-T-Shirt</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-12 bg-secondary-subtle p-3 description rounded">
+      <p class="text1">
+        Upgrade your wardrobe with our high-quality T-shirts, available in various GSM options to suit your style and comfort. Whether you prefer a lightweight, breathable fabric or a thicker, premium feel, we have the perfect fit for you.
+      </p>
+      <p class="text1">
+        Choose your favourite from our collection and customize your own with unique prints, logos, or artwork. Ideal for personal wear, team uniforms, corporate branding, or events.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container pt-5">
+  <div class="row align-items-center py-2 bg-white rounded shadow-sm">
+    <div class="col-sm-6 col-12 mb-2 mb-sm-0">
+      <p class="mb-0">Showing all 6 results</p>
+    </div>
+    <div class="col-sm-6 col-12 text-sm-end text-center">
+      <div class="btn-group flex-wrap justify-content-center justify-content-sm-end gap-2">
+        <button type="button" class="btn filter-btn">
+          <i class="fas fa-sliders-h me-1"></i> <span class="filter">Filters</span>
+        </button>
+        <button type="button" class="btn icon-btn"><a href="#">See</a></button>
+        <button type="button" class="btn icon-btn"><a href="#"><i class="fas fa-th"></i></a></button>
+        <button type="button" class="btn icon-btn"><a href="#"><i class="fas fa-bars"></i></a></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

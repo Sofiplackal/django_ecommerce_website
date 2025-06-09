@@ -1,0 +1,188 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+
+<style>
+  .image-container {
+    overflow: hidden;
+    border-radius: 1rem;
+  }
+
+  .polo_img {
+    transition: transform 0.3s ease;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .polo_img:hover {
+    transform: scale(1.05);
+  }
+
+  .bg-secondary-subtle {
+    background-color: rgba(226, 228, 230, 0.664);
+  }
+
+  .heading {
+    font-size: 1.2rem;
+    text-align: center;
+    color: gray !important;
+  }
+
+  .heading span {
+    color: black !important;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: gray;
+    border-radius: 10px;
+  }
+
+  .text1 {
+    color: gray;
+    font-size: 1rem;
+  }
+
+  .filter-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .filter {
+    font-family: sans-serif;
+    font-size: small;
+  }
+
+  .icon-btn {
+    background-color: transparent;
+    border: none;
+    padding: 6px 10px;
+    font-size: 1rem;
+  }
+
+  .icon-btn a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  .icon-btn a:hover {
+    color: #28c76f;
+  }
+
+  .btn-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  
+  @media (max-width: 576px) {
+    .btn-group {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 bg-secondary-subtle pt-3">
+      <p class="heading">Home <span>- Polo</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-12 bg-secondary-subtle p-3 rounded description">
+      <p class="text1">
+        Achieve the perfect balance between casual and professional with our premium polo shirts. Available in multiple GSM options, our polos are designed for comfort, durability, and style.
+      </p>
+      <p class="text1">
+        Choose a plain polo for a sleek, professional look or add your logo or design for branding, uniforms, or events. Ideal for businesses, schools, corporate teams, and casual wear.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container pt-5">
+  <div class="row align-items-center py-2 bg-white rounded shadow-sm">
+    <div class="col-sm-6 col-12 mb-2 mb-sm-0">
+      <p class="mb-0">Showing all {{ polos.count }} results</p>
+    </div>
+    <div class="col-sm-6 col-12 text-sm-end text-center">
+      <div class="btn-group">
+        <button type="button" class="btn filter-btn">
+          <i class="fas fa-sliders-h me-1"></i> <span class="filter">Filters</span>
+        </button>
+        <button type="button" class="btn icon-btn"><a href="#">See</a></button>
+        <button type="button" class="btn icon-btn" onclick="showGridSection()"><i class="fas fa-th"></i></button>
+        <button type="button" class="btn icon-btn" onclick="showListSection()"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Grid View -->
+<div id="gridSection" class="container pt-5">
+  <div class="row">
+    {% for polo in polos %}
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <div class="image-container rounded overflow-hidden">
+          <img src="{{ polo.polo_image.url }}" alt="{{ polo.polo_name }}" class="polo_img w-100">
+        </div>
+        <p class="text-center pt-2 fw-bold">£{{ polo.polo_price }}</p>
+      </div>
+    {% empty %}
+      <p class="text-center">No polos available.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- List View -->
+<div id="listSection" class="container pt-5" style="display: none;">
+  {% for polo in polos %}
+    <div class="row mb-4 align-items-center">
+      <div class="col-12 col-md-4 mb-3 mb-md-0">
+        <div class="image-container rounded overflow-hidden">
+          <img src="{{ polo.polo_image.url }}" alt="{{ polo.polo_name }}" class="polo_img w-100">
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <h4>{{ polo.polo_name }}</h4>
+        <p><strong>£{{ polo.polo_price }}</strong></p>
+        <p>{{ polo.polo_description }}</p>
+        <a href="#">
+          <button class="btn btn-success px-4 py-2 fw-bold">Select Options</button>
+        </a>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-center">No polos available at the moment.</p>
+  {% endfor %}
+</div>
+
+<script>
+  function showGridSection() {
+    document.getElementById('gridSection').style.display = 'block';
+    document.getElementById('listSection').style.display = 'none';
+  }
+
+  function showListSection() {
+    document.getElementById('gridSection').style.display = 'none';
+    document.getElementById('listSection').style.display = 'block';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    showGridSection();
+  });
+</script>
+
+
+{% endblock %}

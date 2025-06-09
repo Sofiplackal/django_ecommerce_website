@@ -1,0 +1,304 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<style>
+  .badge-new {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: 10px;
+    background-color: #cdb4ff;
+    color: #4b0082;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+
+  .color-options label {
+    margin-right: 8px;
+    cursor: pointer;
+  }
+
+  .color-dot {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin-right: 4px;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  input[type="radio"]:checked + .color-dot {
+    border: 2px solid #000;
+  }
+
+  .image-container {
+    overflow: hidden;
+    border-radius: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hoodie_img {
+    transition: transform 0.3s ease;
+    display: block;
+    width: 100%;
+  }
+
+  .hoodie_img:hover {
+    transform: scale(1.1);
+  }
+
+  .bg-white {
+    background-color: #ffffff !important;
+  }
+
+  .filter-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .filter {
+    font-family: sans-serif;
+    font-size: small;
+  }
+
+  .icon-btn {
+    background-color: transparent;
+    border: none;
+    padding: 6px 10px;
+    font-size: 16px;
+  }
+
+  .icon-btn a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  .icon-btn a:hover {
+    color: #28c76f;
+  }
+
+  .btn-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .bg-secondary-subtle {
+    background-color: rgba(226, 228, 230, 0.664);
+  }
+
+  .heading {
+    color: gray !important;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .heading span {
+    color: black !important;
+  }
+
+  .description {
+    border-radius: 10px;
+  }
+
+  .text1 {
+    color: gray;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="row">
+        <div class="col-sm-12 bg-secondary-subtle pt-3">
+          <p class="heading">Home <span>- Hoodie</span></p>
+        </div>
+      </div>
+
+      <div class="container" style="padding-top: 70px;">
+        <div class="row">
+          <div class="col-sm-12 bg-secondary-subtle pt-3 description">
+            <p class="text1">
+              Stay cozy and stylish with our premium-quality hoodies, available in a variety of GSM options to match your comfort and durability needs.
+            </p>
+            <p class="text1">
+              Choose your favourite from our collection and customize your own with unique prints, logos, or artwork.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container pt-5">
+        <div class="row align-items-center py-2 bg-white rounded shadow-sm">
+          <div class="col-sm-6">
+            <p class="mb-0">Showing {{ hoodies.count }} results</p>
+          </div>
+          <div class="col-sm-6 text-end">
+            <div class="btn-group">
+              <button type="button" class="btn filter-btn">
+                <i class="fas fa-sliders-h me-1"></i> <span class="filter">Filters</span>
+              </button>
+              <button type="button" class="btn icon-btn" onclick="showGridSection()"><a href="#"><i class="fas fa-th"></i></a></button>
+              <button type="button" class="btn icon-btn" onclick="showProductSection()"><a href="#"><i class="fas fa-bars"></i></a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="gridSection" class="container pt-5" style="display: none;">
+        <div class="row">
+          {% for hoodie in hoodies %}
+          <div class="col-md-3 mb-4">
+            <div class="bg-white rounded shadow-sm p-3 position-relative h-100 d-flex flex-column justify-content-between">
+              {% if hoodie.is_new %}
+              <span class="badge-new">New</span>
+              {% endif %}
+              <div class="image-container">
+                <a href="{% url 'hoodie_detail' hoodie.id %}"><img id="hoodie-image-grid-{{ hoodie.id }}" src="{{ hoodie.hoodie_image.url }}" alt="{{ hoodie.hoodie_name }}" class="hoodie_img"></a>
+              </div>
+              <h6 class="fw-bold mt-2">{{ hoodie.hoodie_name }}</h6>
+              <p class="mb-1"><strong>£{{ hoodie.hoodie_price }}</strong></p>
+              <div class="color-options mb-2">
+                {% for color in hoodie.color_options.all %}
+                <label class="{% if forloop.counter > 2 %}extra-color-grid extra-color-grid-{{ hoodie.id }} d-none{% endif %}">
+                  <input type="radio"
+                         name="color_grid_{{ hoodie.id }}"
+                         data-section="grid"
+                         data-hoodie-id="{{ hoodie.id }}"
+                         {% if color.color_image %}
+                         data-image-url="{{ color.color_image.url }}"
+                         {% endif %}>
+                  <span class="color-dot" style="background-color: {{ color.color_code }}"></span>
+                </label>
+                {% endfor %}
+                {% with total_colors=hoodie.color_options.all|length %}
+                  {% if total_colors > 2 %}
+                  <span class="text-muted ms-1 see-more" data-section="grid" data-hoodie-id="{{ hoodie.id }}" style="cursor: pointer;">+{{ total_colors|add:"-2" }}</span>
+                  {% endif %}
+                {% endwith %}
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <p>No hoodies available.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div id="productSection" class="container pt-5" style="display: none;">
+        {% for hoodie in hoodies %}
+        <div class="row bg-white rounded shadow-sm p-4 align-items-center mb-4">
+          <div class="col-md-4 position-relative">
+            {% if hoodie.is_new %}
+            <span class="badge-new">New</span>
+            {% endif %}
+            <div class="image-container">
+              <img id="hoodie-image-product-{{ hoodie.id }}" src="{{ hoodie.hoodie_image.url }}" alt="{{ hoodie.hoodie_name }}" class="img-fluid rounded hoodie_img">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <h4><strong>{{ hoodie.hoodie_name }}</strong></h4>
+            <p><strong>£{{ hoodie.hoodie_price }}</strong></p>
+            <div class="color-options mb-2">
+              {% for color in hoodie.color_options.all %}
+              <label class="{% if forloop.counter > 2 %}extra-color-product extra-color-product-{{ hoodie.id }} d-none{% endif %}">
+                <input type="radio"
+                       name="color_product_{{ hoodie.id }}"
+                       data-section="product"
+                       data-hoodie-id="{{ hoodie.id }}"
+                       {% if color.color_image %}
+                       data-image-url="{{ color.color_image.url }}"
+                       {% endif %}>
+                <span class="color-dot" style="background-color: {{ color.color_code }}"></span>
+              </label>
+              {% endfor %}
+              {% with total_colors=hoodie.color_options.all|length %}
+                {% if total_colors > 2 %}
+                <span class="text-muted ms-2 see-more" data-section="product" data-hoodie-id="{{ hoodie.id }}" style="cursor: pointer;">+{{ total_colors|add:"-2" }}</span>
+                {% endif %}
+              {% endwith %}
+            </div>
+            <p class="text-muted">{{ hoodie.hoodie_description|truncatewords:40 }}</p>
+            <a href="#">
+              <button class="btn btn-success px-4 py-2" style="font-weight: 600;">Select Options</button>
+            </a>
+          </div>
+        </div>
+        {% empty %}
+        <p>No hoodies available at the moment.</p>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function showGridSection() {
+    document.getElementById('gridSection').style.display = 'block';
+    document.getElementById('productSection').style.display = 'none';
+  }
+
+  function showProductSection() {
+    document.getElementById('productSection').style.display = 'block';
+    document.getElementById('gridSection').style.display = 'none';
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    showGridSection();
+    document.querySelectorAll(".see-more").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const hoodieId = this.dataset.hoodieId;
+        const section = this.dataset.section;
+        const className = section === 'grid'
+          ? `.extra-color-grid-${hoodieId}`
+          : `.extra-color-product-${hoodieId}`;
+        document.querySelectorAll(className).forEach(el => el.classList.remove("d-none"));
+        this.remove();
+      });
+    });
+    document.querySelectorAll('input[type="radio"][data-image-url]').forEach(radio => {
+      radio.addEventListener('change', function () {
+        const hoodieId = this.dataset.hoodieId;
+        const section = this.dataset.section;
+        const imageUrl = this.dataset.imageUrl;
+        const imageId = section === 'grid'
+          ? `hoodie-image-grid-${hoodieId}`
+          : `hoodie-image-product-${hoodieId}`;
+        const img = document.getElementById(imageId);
+        if (img && imageUrl) {
+          img.src = imageUrl;
+        }
+      });
+    });
+  });
+</script>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
