@@ -207,7 +207,7 @@
             <span class="badge-new">New</span>
             {% endif %}
             <div class="image-container">
-              <img id="hoodie-image-product-{{ hoodie.id }}" src="{{ hoodie.hoodie_image.url }}" alt="{{ hoodie.hoodie_name }}" class="img-fluid rounded hoodie_img">
+              <a href="{% url 'hoodie_detail' hoodie.id %}"><img id="hoodie-image-product-{{ hoodie.id }}" src="{{ hoodie.hoodie_image.url }}" alt="{{ hoodie.hoodie_name }}" class="img-fluid rounded hoodie_img"></a>
             </div>
           </div>
           <div class="col-md-8">
